@@ -25,10 +25,6 @@ namespace MovieDatabase.API.Repositories
         public async Task AddMovieAsync(AddMovieRequest request)
         {
             var entity = new MovieEntity();
-            if (request.Name.IsNullOrEmpty() || request.Name.Length > 200) return;
-            if (request.Description.IsNullOrEmpty() || request.Description.Length > 2000) return;
-            if (request.Year < 1895) return;
-            if (request.Director.IsNullOrEmpty() || request.Director.Length > 50) return;
 
             entity.Name = request.Name;
             entity.Description = request.Description;
@@ -62,12 +58,6 @@ namespace MovieDatabase.API.Repositories
         public async Task<MovieEntity> UpdateMovieAsync(UpdateMovieRequest request)
         {
             var movie = _db.Movies.FirstOrDefault(x => x.Id == request.Id);
-            if (request.Name.IsNullOrEmpty() || request.Name.Length > 200) return null;
-            if (request.Description.IsNullOrEmpty() || request.Description.Length > 2000) return null;
-            if (request.Year < 1895) return null;
-            if (request.Director.IsNullOrEmpty() || request.Director.Length > 50) return null;
-
-
 
             if (request.Name != null) movie.Name = request.Name;
             if (request.Description != null) movie.Description = request.Description;
