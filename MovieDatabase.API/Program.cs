@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.API.Db;
+using MovieDatabase.API.Repositories;
 
 namespace MovieDatabase.API
 {
@@ -17,8 +18,12 @@ namespace MovieDatabase.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddTransient<IMovieRepository, MovieRepository>();
+
             builder.Services.AddDbContext<AppDbContext>(c =>
             c.UseSqlServer(builder.Configuration["movieDb"]));
+
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
