@@ -36,6 +36,7 @@ namespace MovieDatabase.API.Repositories
             await _db.Movies.AddAsync(entity);
         }
 
+        // რექუეს სტატუსი ტყილად გაქვს, არსად არ იყენებ, ალბათ id საკმარისია პარამეტრად
         public void DeleteMovie(DeleteMovieRequest request)
         {
             var movie = GetById(request.Id);
@@ -44,6 +45,7 @@ namespace MovieDatabase.API.Repositories
             movie.MovieStatus = Status.Deleted;
         }
 
+        // სავარუდოდ სტატუსი უნდა შეამოწმო, თუ წააშლილის სტატუსი აქვს აღარ დააბრუნებ
         public MovieEntity GetById(int id)
         {
             var movie = _db.Movies.FirstOrDefault(x => x.Id == id);
@@ -68,6 +70,7 @@ namespace MovieDatabase.API.Repositories
             return movie;
         }
 
+        // აქ contains უნდა იყენებდე სავარაუდოდ
         public MovieEntity SearchMovie(SearchMovieRequest request)
         {
             var movie = _db.Movies.FirstOrDefault(x => x.Director == request.Director || 
